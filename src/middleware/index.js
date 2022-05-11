@@ -13,10 +13,10 @@ exports.hashPass = async (req, res, next) => {
 
 exports.login = async (req, res, next) => {
 	try {
-	const checkLogin = User.findOne({ username: req.body.username });
+	const checkLogin = await User.findOne({ username: req.body.username });
 	if (await bcrypt.compare(req.body.password, checkLogin.password)) {
-		res.status(200).send({message: 'Login successful!'})
-		next()
+		res.status(200).send({message: 'Login successful!'});
+		next();
 	} else {
 		res.status(500).send({error: 'Login failed'})
 	}
